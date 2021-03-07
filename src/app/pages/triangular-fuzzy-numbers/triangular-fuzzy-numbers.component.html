@@ -1,0 +1,38 @@
+<form *ngIf="dataService.triangularFuzzyCriteriaTable" style="overflow: auto;">
+  <h3>Triangular fuzzy numbers ( Criteria )</h3>
+  <table mat-table [dataSource]="dataService.triangularFuzzyCriteriaTable.dataSource" class="mat-elevation-z8">
+    <ng-container *ngFor="let column of dataService.triangularFuzzyCriteriaTable.columns" [matColumnDef]="column">
+      <th mat-header-cell *matHeaderCellDef>
+        {{column === 'none' ? '' : column}}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{element[column].data}}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="dataService.triangularFuzzyCriteriaTable.columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: dataService.triangularFuzzyCriteriaTable.columns;"></tr>
+  </table>
+</form>
+
+<form *ngIf="dataService.triangularFuzzyExpertsTable" style="overflow: auto;">
+  <h3>Triangular fuzzy numbers ( Expert-Alternatives )</h3>
+  <table mat-table [dataSource]="dataService.triangularFuzzyExpertsTable.dataSource" class="mat-elevation-z8">
+    <ng-container *ngFor="let column of dataService.triangularFuzzyExpertsTable.columns" [matColumnDef]="column">
+      <th mat-header-cell *matHeaderCellDef>
+        {{column === 'none' ? '' : column}}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{element[column].data}}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="dataService.triangularFuzzyExpertsTable.columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: dataService.triangularFuzzyExpertsTable.columns;"></tr>
+  </table>
+</form>
+<div class="bottom-btn" style="margin-top: 10px;">
+  <button mat-stroked-button matStepperNext>
+  Show ...
+  </button>
+</div>

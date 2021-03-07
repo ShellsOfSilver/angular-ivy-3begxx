@@ -56,14 +56,11 @@ import { OverlayModule } from "@angular/cdk/overlay";
 import { AppComponent } from "./app.component";
 import { InitComponent } from "./pages/init/init.component";
 import { LinguisticTermsComponent } from "./pages/linguistic-terms/linguistic-terms.component";
-import { ChartComponent } from "./pages/chart/chart.component";
 import { ExpertMatrixComponent } from "./pages/expert-matrix/expert-matrix.component";
 import { IntervalMatrixComponent } from "./pages/interval-matrix/interval-matrix.component";
-import { TrapezoidalMatrixComponent } from "./pages/trapezoidal-matrix/trapezoidal-matrix.component";
-import { CalcResComponent } from "./pages/calc-res/calc-res.component";
 import { ImportanceCriteriaComponent } from "./pages/importance-criteria/importance-criteria.component";
 import { AggregationMatrixComponent } from "./pages/aggregation-matrix/aggregation-matrix.component";
-import { TriangularFuzzyNumbersComponent } from './pages/triangular-fuzzy-numbers/triangular-fuzzy-numbers.component';
+import { TriangularFuzzyNumbersComponent } from "./pages/triangular-fuzzy-numbers/triangular-fuzzy-numbers.component";
 
 @NgModule({
   imports: [
@@ -123,16 +120,12 @@ import { TriangularFuzzyNumbersComponent } from './pages/triangular-fuzzy-number
     AppComponent,
     InitComponent,
     LinguisticTermsComponent,
-    ChartComponent,
     ExpertMatrixComponent,
     IntervalMatrixComponent,
-    TrapezoidalMatrixComponent,
-    CalcResComponent,
     ImportanceCriteriaComponent,
     AggregationMatrixComponent,
     TriangularFuzzyNumbersComponent
   ],
-  bootstrap: [AppComponent],
-  entryComponents: [ChartComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

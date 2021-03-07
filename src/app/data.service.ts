@@ -242,8 +242,10 @@ export class DataService {
     const form = this.importanceCriteriaForm.value;
 
     this.triangularFuzzyExpertsTable = {
-      columns: this.aggregationMatrixTable.columns,
-      dataSource: this.aggregationMatrixTable.dataSource.map(res => {
+      columns: [...this.aggregationMatrixTable.columns],
+      dataSource: JSON.parse(
+        JSON.stringify(this.aggregationMatrixTable.dataSource)
+      ).map(res => {
         Object.keys(res).forEach(key => {
           const val = res[key];
 
@@ -263,8 +265,10 @@ export class DataService {
     };
 
     this.triangularFuzzyCriteriaTable = {
-      columns: this.importanceCriteriaTable.columns,
-      dataSource: this.importanceCriteriaTable.dataSource.map(res => {
+      columns: [...this.importanceCriteriaTable.columns],
+      dataSource: JSON.parse(
+        JSON.stringify(this.importanceCriteriaTable.dataSource)
+      ).map(res => {
         Object.keys(res).forEach(key => {
           const val = res[key];
           if (!`${val.data}`.startsWith("E")) {
