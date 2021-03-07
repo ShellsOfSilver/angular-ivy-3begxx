@@ -1,0 +1,27 @@
+.terms-container {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+form {
+  flex-grow: 1;
+  margin-top: 5px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  max-width: 300px;
+}
+
+mat-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.range-inputs mat-form-field {
+  width: 33%;
+}
+
+.term-index {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+}

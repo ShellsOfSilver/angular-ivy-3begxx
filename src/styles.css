@@ -1,0 +1,7 @@
+/* Add application styles & imports to this file! */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.bottom-btn button {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
