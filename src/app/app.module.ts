@@ -55,12 +55,11 @@ import { OverlayModule } from "@angular/cdk/overlay";
 
 import { AppComponent } from "./app.component";
 import { InitComponent } from "./pages/init/init.component";
-import { LinguisticTermsComponent } from "./pages/linguistic-terms/linguistic-terms.component";
 import { ExpertMatrixComponent } from "./pages/expert-matrix/expert-matrix.component";
-import { IntervalMatrixComponent } from "./pages/interval-matrix/interval-matrix.component";
 import { ImportanceCriteriaComponent } from "./pages/importance-criteria/importance-criteria.component";
 import { AggregationMatrixComponent } from "./pages/aggregation-matrix/aggregation-matrix.component";
 import { TriangularFuzzyNumbersComponent } from "./pages/triangular-fuzzy-numbers/triangular-fuzzy-numbers.component";
+import { FuzzyNumbersTransformedLinguisticTermsComponent } from './pages/fuzzy-numbers-transformed-linguistic-terms/fuzzy-numbers-transformed-linguistic-terms.component';
 
 @NgModule({
   imports: [
@@ -119,12 +118,11 @@ import { TriangularFuzzyNumbersComponent } from "./pages/triangular-fuzzy-number
   declarations: [
     AppComponent,
     InitComponent,
-    LinguisticTermsComponent,
     ExpertMatrixComponent,
-    IntervalMatrixComponent,
     ImportanceCriteriaComponent,
     AggregationMatrixComponent,
-    TriangularFuzzyNumbersComponent
+    TriangularFuzzyNumbersComponent,
+    FuzzyNumbersTransformedLinguisticTermsComponent
   ],
   bootstrap: [AppComponent]
 })

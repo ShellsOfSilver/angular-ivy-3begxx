@@ -34,6 +34,14 @@ export class DataService {
     columns: Array<string>;
     dataSource: any;
   };
+  matrixFNTransformedLinguisticTermsCriteriaTable: {
+    columns: Array<string>;
+    dataSource: any;
+  };
+  matrixFNTransformedLinguisticTermsExpertsTable: {
+    columns: Array<string>;
+    dataSource: any;
+  };
 
   listOfCriterias: any = [
     { value: "VL", viewValue: "Very low (VL)", trValue: [0.0, 0.0, 0.1] },
@@ -123,7 +131,7 @@ export class DataService {
     const form = this.importanceCriteriaForm.value;
     Object.keys(form).forEach(key => {
       const atl = Object.keys(this.listOfCriterias);
-      const inx = this.randomInteger(0, atl.length - 1);
+      const inx = this.randomInteger(2, atl.length - 1);
       res[key] = this.listOfCriterias[atl[inx]].value;
     });
     this.importanceCriteriaForm.setValue(res);
@@ -134,7 +142,7 @@ export class DataService {
     const form = this.expertMatrixForm.value;
     Object.keys(form).forEach(key => {
       const atl = Object.keys(this.listOfExpertAssesments);
-      const inx = this.randomInteger(0, atl.length - 1);
+      const inx = this.randomInteger(2, atl.length - 1);
       res[key] = this.listOfExpertAssesments[atl[inx]].value;
     });
     this.expertMatrixForm.setValue(res);
@@ -263,6 +271,7 @@ export class DataService {
         return res;
       })
     };
+    console.log(this.triangularFuzzyExpertsTable);
 
     this.triangularFuzzyCriteriaTable = {
       columns: [...this.importanceCriteriaTable.columns],
@@ -279,6 +288,154 @@ export class DataService {
         });
         return res;
       })
+    };
+  }
+
+  setFuzzyNumbersTransformedLinguisticTerms() {
+    this.matrixFNTransformedLinguisticTermsCriteriaTable = null;
+    const dataSource = [];
+    const critList = {};
+    const sourceC = this.triangularFuzzyCriteriaTable.dataSource;
+    const sourceE = this.triangularFuzzyExpertsTable.dataSource;
+
+    sourceC.forEach(el => {
+      Object.keys(el).forEach(sK => {
+        if (sK !== "none") {
+          const key = `${el["none"].data}`.replace("E", "C");
+          const ids = `${el[sK].id}`.split("_");
+          if (!critList["C" + ids[1]]) {
+            critList["C" + ids[1]] = {};
+          }
+          critList["C" + ids[1]][key] = el[sK].data;
+        }
+      });
+    });
+
+    for (let i = 0; i < Object.keys(sourceC[0]).length - 1; i++) {
+      const res = {};
+      res["none"] = {
+        id: i,
+        start: true,
+        data: "C" + (1 + i)
+      };
+
+      res["l"] = {
+        id: i,
+        data: Math.min(
+          ...Object.values(critList["C" + (1 + i)]).map(
+            (pp: string) => JSON.parse(pp)[0]
+          )
+        )
+      };
+
+      res["l`"] = {
+        id: i,
+        data: Math.pow(
+          Object.values(critList["C" + (1 + i)])
+            .map((pp: string) => JSON.parse(pp)[0])
+            .reduce((a, b) => a * b, 1),
+          1 / Object.values(critList["C" + (1 + i)]).length
+        )
+      };
+
+      res["m"] = {
+        id: i,
+        data: Math.pow(
+          Object.values(critList["C" + (1 + i)])
+            .map((pp: string) => JSON.parse(pp)[1])
+            .reduce((a, b) => a * b, 1),
+          1 / Object.values(critList["C" + (1 + i)]).length
+        )
+      };
+
+      res["u`"] = {
+        id: i,
+        data: Math.pow(
+          Object.values(critList["C" + (1 + i)])
+            .map((pp: string) => JSON.parse(pp)[2])
+            .reduce((a, b) => a * b, 1),
+          1 / Object.values(critList["C" + (1 + i)]).length
+        )
+      };
+
+      res["u"] = {
+        id: i,
+        data: Math.max(
+          ...Object.values(critList["C" + (1 + i)]).map(
+            (pp: string) => JSON.parse(pp)[2]
+          )
+        )
+      };
+
+      dataSource.push(res);
+    }
+
+    this.matrixFNTransformedLinguisticTermsCriteriaTable = {
+      columns: ["none", "l", "l`", "m", "u`", "u"],
+      dataSource
+    };
+
+    const dataSourceExp = [];
+
+    for (let j = 0; j < Object.keys(sourceE).length; j++) {
+      for (let i = 0; i < Object.keys(sourceE[j]).length - 1; i++) {
+        const res = {};
+        res["none"] = {
+          id: i,
+          start: true,
+          data: `A${1 + j}_C${1 + i}`
+        };
+        res["l"] = {
+          id: i,
+          data: Math.min(
+            ...JSON.parse(sourceE[j][`C${1 + i}`].data).map(e => e[0])
+          )
+        };
+
+        res["l`"] = {
+          id: i,
+          data: Math.pow(
+            JSON.parse(sourceE[j][`C${1 + i}`].data)
+              .map(e => e[0])
+              .reduce((a, b) => a * b, 1),
+            1 / JSON.parse(sourceE[j][`C${1 + i}`].data).length
+          )
+        };
+
+        res["m"] = {
+          id: i,
+          data: Math.pow(
+            JSON.parse(sourceE[j][`C${1 + i}`].data)
+              .map(e => e[1])
+              .reduce((a, b) => a * b, 1),
+            1 / JSON.parse(sourceE[j][`C${1 + i}`].data).length
+          )
+        };
+
+        res["u`"] = {
+          id: i,
+          data: Math.pow(
+            JSON.parse(sourceE[j][`C${1 + i}`].data)
+              .map(e => e[2])
+              .reduce((a, b) => a * b, 1),
+            1 / JSON.parse(sourceE[j][`C${1 + i}`].data).length
+          )
+        };
+
+        res["u"] = {
+          id: i,
+          data: Math.max(
+            ...JSON.parse(sourceE[j][`C${1 + i}`].data).map(e => e[2])
+          )
+        };
+
+        dataSourceExp.push(res);
+      }
+    }
+
+    this.matrixFNTransformedLinguisticTermsExpertsTable = {
+      columns: ["none", "l", "l`", "m", "u`", "u"],
+      dataSource: dataSourceExp
     };
   }
 

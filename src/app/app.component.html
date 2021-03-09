@@ -1,4 +1,4 @@
-<!-- <button (click)="test(stepper)">test</button> -->
+<button (click)="test(stepper)">test</button>
 <h2 style="text-align: center;">Skakun 501</h2>
 <mat-vertical-stepper [linear]="true" #stepper>
   <mat-step [stepControl]="dataService.initFormGroup">
@@ -20,6 +20,10 @@
   <mat-step>
     <ng-template matStepLabel>Show triangular fuzzy numbers</ng-template>
     <app-triangular-fuzzy-numbers></app-triangular-fuzzy-numbers>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Show matrix of fuzzy numbers on the basis of transformed linguistic terms</ng-template>
+    <app-fuzzy-numbers-transformed-linguistic-terms></app-fuzzy-numbers-transformed-linguistic-terms>
   </mat-step>
   <!-- <mat-step [stepControl]="dataService.linguisticTermsForm">
 		<ng-template matStepLabel>Linguistic terms</ng-template>

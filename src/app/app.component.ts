@@ -15,29 +15,31 @@ export class AppComponent implements OnInit {
   }
 
   test(stepper) {
-    // setTimeout(() => {
-    //   this.dataService.setInitRandom();
-    //   setTimeout(() => {
-    //     this.dataService.setLinguisticTerms();
-    //     stepper.next();
-    //     this.dataService.setLinguisticRandom();
-    //     setTimeout(() => {
-    //       this.dataService.setExpertMatrix();
-    //       stepper.next();
-    //       this.dataService.setMatrixRandom();
-    //       setTimeout(() => {
-    //         this.dataService.checkExpertMatrix(stepper);
-    //         setTimeout(() => {
-    //           this.dataService.setTrapezoidalMatrix();
-    //           stepper.next();
-    //           stepper.next();
-    //           this.dataService.setAggregationMethods();
-    //           this.dataService.calcMethod();
-    //           stepper.next();
-    //         }, 200);
-    //       }, 200);
-    //     }, 200);
-    //   }, 200);
-    // });
+    setTimeout(() => {
+      this.dataService.setInitRandom();
+      this.dataService.setImportanceCriteria();
+      stepper.next();
+      setTimeout(() => {
+        this.dataService.setImportanceRandom();
+        this.dataService.setExpertMatrix();
+        stepper.next();
+        setTimeout(() => {
+          this.dataService.setMatrixRandom();
+          this.dataService.setAggregationMatrix();
+          stepper.next();
+          setTimeout(() => {
+            this.dataService.setTriangularFuzzyNumbers();
+            stepper.next();
+            setTimeout(() => {
+              this.dataService.setFuzzyNumbersTransformedLinguisticTerms();
+              stepper.next();
+              setTimeout(() => {
+                // next
+              });
+            });
+          });
+        });
+      });
+    });
   }
 }

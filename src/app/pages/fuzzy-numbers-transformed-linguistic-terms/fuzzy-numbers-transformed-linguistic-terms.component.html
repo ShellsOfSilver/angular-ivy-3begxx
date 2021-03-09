@@ -1,0 +1,43 @@
+<form *ngIf="dataService.matrixFNTransformedLinguisticTermsCriteriaTable" style="overflow: auto;">
+  <h3>Matrix Criteria</h3>
+  <table mat-table [dataSource]="dataService.matrixFNTransformedLinguisticTermsCriteriaTable.dataSource"
+    class="mat-elevation-z8">
+    <ng-container *ngFor="let column of dataService.matrixFNTransformedLinguisticTermsCriteriaTable.columns"
+      [matColumnDef]="column">
+      <th mat-header-cell *matHeaderCellDef>
+        {{column === 'none' ? '' : column}}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{element[column].data}}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="dataService.matrixFNTransformedLinguisticTermsCriteriaTable.columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: dataService.matrixFNTransformedLinguisticTermsCriteriaTable.columns;">
+    </tr>
+  </table>
+</form>
+
+<form *ngIf="dataService.matrixFNTransformedLinguisticTermsExpertsTable" style="overflow: auto;">
+  <h3>Matrix Alternatives</h3>
+  <table mat-table [dataSource]="dataService.matrixFNTransformedLinguisticTermsExpertsTable.dataSource"
+    class="mat-elevation-z8">
+    <ng-container *ngFor="let column of dataService.matrixFNTransformedLinguisticTermsExpertsTable.columns"
+      [matColumnDef]="column">
+      <th mat-header-cell *matHeaderCellDef>
+        {{column === 'none' ? '' : column}}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{element[column].data}}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="dataService.matrixFNTransformedLinguisticTermsExpertsTable.columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: dataService.matrixFNTransformedLinguisticTermsExpertsTable.columns;"></tr>
+  </table>
+</form>
+<div class="bottom-btn" style="margin-top: 10px;">
+  <button mat-stroked-button matStepperNext>
+  Show ....
+  </button>
+</div>
