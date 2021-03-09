@@ -34,7 +34,11 @@ export class AppComponent implements OnInit {
               this.dataService.setFuzzyNumbersTransformedLinguisticTerms();
               stepper.next();
               setTimeout(() => {
-                // next
+                this.dataService.setMatrixOptimalValuesCriteria();
+                stepper.next();
+                setTimeout(() => {
+                  // next
+                });
               });
             });
           });
