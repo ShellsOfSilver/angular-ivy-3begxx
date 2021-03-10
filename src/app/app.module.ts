@@ -62,6 +62,7 @@ import { TriangularFuzzyNumbersComponent } from "./pages/triangular-fuzzy-number
 import { FuzzyNumbersTransformedLinguisticTermsComponent } from './pages/fuzzy-numbers-transformed-linguistic-terms/fuzzy-numbers-transformed-linguistic-terms.component';
 import { MatrixOptimalValuesCriteriaComponent } from './pages/matrix-optimal-values-criteria/matrix-optimal-values-criteria.component';
 import { NormalisedFuzzyMatrixComponent } from './pages/normalised-fuzzy-matrix/normalised-fuzzy-matrix.component';
+import { NormalizedWeightedFuzzyMatrixComponent } from './pages/normalized-weighted-fuzzy-matrix/normalized-weighted-fuzzy-matrix.component';
 
 @NgModule({
   imports: [
@@ -126,7 +127,8 @@ import { NormalisedFuzzyMatrixComponent } from './pages/normalised-fuzzy-matrix/
     TriangularFuzzyNumbersComponent,
     FuzzyNumbersTransformedLinguisticTermsComponent,
     MatrixOptimalValuesCriteriaComponent,
-    NormalisedFuzzyMatrixComponent
+    NormalisedFuzzyMatrixComponent,
+    NormalizedWeightedFuzzyMatrixComponent
   ],
   bootstrap: [AppComponent]
 })

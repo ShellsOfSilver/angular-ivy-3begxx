@@ -51,6 +51,11 @@ export class DataService {
     dataSource: any;
   };
 
+  normalizedWMatrixTable: {
+    columns: Array<string>;
+    dataSource: any;
+  };
+
   listOfCriterias: any = [
     { value: "VL", viewValue: "Very low (VL)", trValue: [0.0, 0.0, 0.1] },
     { value: "L", viewValue: "Low (L)", trValue: [0.0, 0.1, 0.3] },
@@ -547,8 +552,39 @@ export class DataService {
       });
     });
 
-    console.log(criterias, dataSource);
     this.notmalisedFuzzyMatrixTable = {
+      columns: ["none", "l", "l`", "m", "u`", "u"],
+      dataSource
+    };
+  }
+
+  setNormalizedWMatrix() {
+    this.normalizedWMatrixTable = null;
+    const norm = JSON.parse(
+      JSON.stringify(this.notmalisedFuzzyMatrixTable.dataSource)
+    );
+    const criter = JSON.parse(
+      JSON.stringify(
+        this.matrixFNTransformedLinguisticTermsCriteriaTable.dataSource
+      )
+    );
+    const dataSource = [];
+
+    console.log(norm, criter);
+
+    norm.forEach(el => {
+      const keys = `${el["none"].data}`.split("_");
+      const cr = criter.find(e => e["none"].data === keys[0]);
+
+      Object.keys(el).forEach(k => {
+        if (k !== "none") {
+          el[k].data = el[k].data * cr[k].data;
+        }
+      });
+      dataSource.push(el);
+    });
+
+    this.normalizedWMatrixTable = {
       columns: ["none", "l", "l`", "m", "u`", "u"],
       dataSource
     };
