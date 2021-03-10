@@ -37,7 +37,11 @@ export class AppComponent implements OnInit {
                 this.dataService.setMatrixOptimalValuesCriteria();
                 stepper.next();
                 setTimeout(() => {
-                  // next
+                  this.dataService.setNotmalisedFuzzyMatrix();
+                  stepper.next();
+                  setTimeout(() => {
+                    // next
+                  });
                 });
               });
             });

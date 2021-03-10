@@ -1,0 +1,22 @@
+<form *ngIf="dataService.notmalisedFuzzyMatrixTable" style="overflow: auto;">
+  <h3>Matrix optimal value</h3>
+  <table mat-table [dataSource]="dataService.notmalisedFuzzyMatrixTable.dataSource" class="mat-elevation-z8">
+    <ng-container *ngFor="let column of dataService.notmalisedFuzzyMatrixTable.columns" [matColumnDef]="column">
+      <th mat-header-cell *matHeaderCellDef>
+        {{column === 'none' ? '' : column}}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{element[column].data}}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="dataService.notmalisedFuzzyMatrixTable.columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: dataService.notmalisedFuzzyMatrixTable.columns;">
+    </tr>
+  </table>
+</form>
+<div class="bottom-btn" style="margin-top: 10px;">
+  <button mat-stroked-button matStepperNext>
+  Show ....
+  </button>
+</div>

@@ -46,6 +46,11 @@ export class DataService {
     dataSource: any;
   };
 
+  notmalisedFuzzyMatrixTable: {
+    columns: Array<string>;
+    dataSource: any;
+  };
+
   listOfCriterias: any = [
     { value: "VL", viewValue: "Very low (VL)", trValue: [0.0, 0.0, 0.1] },
     { value: "L", viewValue: "Low (L)", trValue: [0.0, 0.1, 0.3] },
@@ -497,6 +502,53 @@ export class DataService {
     });
 
     this.matrixOptimalValueTable = {
+      columns: ["none", "l", "l`", "m", "u`", "u"],
+      dataSource
+    };
+  }
+
+  setNotmalisedFuzzyMatrix() {
+    this.notmalisedFuzzyMatrixTable = null;
+    const dataSource = [];
+
+    const exp = JSON.parse(
+      JSON.stringify(
+        this.matrixFNTransformedLinguisticTermsExpertsTable.dataSource
+      )
+    );
+    const opt = JSON.parse(
+      JSON.stringify(this.matrixOptimalValueTable.dataSource)
+    );
+    const col = opt.length;
+
+    const criterias = {};
+    exp.forEach(el => {
+      const keys = `${el["none"].data}`.split("_");
+      if (!criterias[keys[1]]) {
+        criterias[keys[1]] = {};
+        criterias[keys[1]]["Optimal"] = opt.find(
+          e => e["none"].data === keys[1]
+        );
+      }
+      criterias[keys[1]][keys[0]] = el;
+    });
+
+    Object.keys(criterias).forEach(key => {
+      Object.keys(criterias[key]).forEach(sKye => {
+        const k = key + "_" + sKye;
+        const d = criterias[key][sKye];
+        d["none"].data = k;
+        Object.keys(d).forEach(k => {
+          if (k !== "none") {
+            d[k].data = d[k].data / col;
+          }
+        });
+        dataSource.push(d);
+      });
+    });
+
+    console.log(criterias, dataSource);
+    this.notmalisedFuzzyMatrixTable = {
       columns: ["none", "l", "l`", "m", "u`", "u"],
       dataSource
     };
