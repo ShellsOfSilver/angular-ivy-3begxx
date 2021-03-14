@@ -43,7 +43,11 @@ export class AppComponent implements OnInit {
                     this.dataService.setNormalizedWMatrix();
                     stepper.next();
                     setTimeout(() => {
-                      // next
+                      this.dataService.setoOerallIntervalValuedFuzzyPerformanceRating();
+                      stepper.next();
+                      setTimeout(() => {
+                        // next
+                      });
                     });
                   });
                 });

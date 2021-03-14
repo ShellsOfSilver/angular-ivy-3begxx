@@ -63,6 +63,7 @@ import { FuzzyNumbersTransformedLinguisticTermsComponent } from './pages/fuzzy-n
 import { MatrixOptimalValuesCriteriaComponent } from './pages/matrix-optimal-values-criteria/matrix-optimal-values-criteria.component';
 import { NormalisedFuzzyMatrixComponent } from './pages/normalised-fuzzy-matrix/normalised-fuzzy-matrix.component';
 import { NormalizedWeightedFuzzyMatrixComponent } from './pages/normalized-weighted-fuzzy-matrix/normalized-weighted-fuzzy-matrix.component';
+import { OverallIntervalValuedFuzzyPerformanceRatingComponent } from './pages/overall-interval-valued-fuzzy-performance-rating/overall-interval-valued-fuzzy-performance-rating.component';
 
 @NgModule({
   imports: [
@@ -128,7 +129,8 @@ import { NormalizedWeightedFuzzyMatrixComponent } from './pages/normalized-weigh
     FuzzyNumbersTransformedLinguisticTermsComponent,
     MatrixOptimalValuesCriteriaComponent,
     NormalisedFuzzyMatrixComponent,
-    NormalizedWeightedFuzzyMatrixComponent
+    NormalizedWeightedFuzzyMatrixComponent,
+    OverallIntervalValuedFuzzyPerformanceRatingComponent
   ],
   bootstrap: [AppComponent]
 })

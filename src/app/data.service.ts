@@ -56,6 +56,11 @@ export class DataService {
     dataSource: any;
   };
 
+  overallIntervalValuedFuzzyPerformanceRatingTable: {
+    columns: Array<string>;
+    dataSource: any;
+  };
+
   listOfCriterias: any = [
     { value: "VL", viewValue: "Very low (VL)", trValue: [0.0, 0.0, 0.1] },
     { value: "L", viewValue: "Low (L)", trValue: [0.0, 0.1, 0.3] },
@@ -570,8 +575,6 @@ export class DataService {
     );
     const dataSource = [];
 
-    console.log(norm, criter);
-
     norm.forEach(el => {
       const keys = `${el["none"].data}`.split("_");
       const cr = criter.find(e => e["none"].data === keys[0]);
@@ -585,6 +588,74 @@ export class DataService {
     });
 
     this.normalizedWMatrixTable = {
+      columns: ["none", "l", "l`", "m", "u`", "u"],
+      dataSource
+    };
+  }
+
+  setoOerallIntervalValuedFuzzyPerformanceRating() {
+    this.overallIntervalValuedFuzzyPerformanceRatingTable = null;
+
+    const dataSource = [];
+    const sep = {};
+
+    this.normalizedWMatrixTable.dataSource.forEach(el => {
+      const keys = el["none"].data.split("_");
+
+      if (!sep[keys[1]]) {
+        sep[keys[1]] = {};
+        sep[keys[1]].data = [];
+      }
+      sep[keys[1]].data.push(el);
+    });
+
+    const getSumEl = (dataList, key) => {
+      let sum = 0;
+
+      dataList.forEach(el => {
+        sum += el[key].data;
+      });
+
+      return sum;
+    };
+
+    Object.keys(sep).forEach(key => {
+      const res = {};
+      res["none"] = {
+        data: key,
+        start: true,
+        id: 0
+      };
+
+      res["l"] = {
+        data: getSumEl(sep[key].data, "l"),
+        id: 0
+      };
+
+      res["l`"] = {
+        data: getSumEl(sep[key].data, "l`"),
+        id: 0
+      };
+
+      res["m"] = {
+        data: getSumEl(sep[key].data, "m"),
+        id: 0
+      };
+
+      res["u`"] = {
+        data: getSumEl(sep[key].data, "u`"),
+        id: 0
+      };
+
+      res["u"] = {
+        data: getSumEl(sep[key].data, "u"),
+        id: 0
+      };
+
+      dataSource.push(res);
+    });
+
+    this.overallIntervalValuedFuzzyPerformanceRatingTable = {
       columns: ["none", "l", "l`", "m", "u`", "u"],
       dataSource
     };
