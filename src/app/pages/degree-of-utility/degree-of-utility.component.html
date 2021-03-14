@@ -1,0 +1,17 @@
+<form *ngIf="dataService.degreeOfUtilityTable" style="overflow: auto;">
+  <h3>Degree of Utility</h3>
+  <table mat-table [dataSource]="dataService.degreeOfUtilityTable.dataSource" class="mat-elevation-z8">
+    <ng-container *ngFor="let column of dataService.degreeOfUtilityTable.columns" [matColumnDef]="column">
+      <th mat-header-cell *matHeaderCellDef>
+        {{column === 'none' ? '' : column}}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{element[column].data}}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="dataService.degreeOfUtilityTable.columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: dataService.degreeOfUtilityTable.columns;">
+    </tr>
+  </table>
+</form>

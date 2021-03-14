@@ -1,4 +1,4 @@
-<button (click)="test(stepper)">test</button>
+<button (click)="test(stepper)">Random</button>
 <h2 style="text-align: center;">Skakun 501</h2>
 <mat-vertical-stepper [linear]="true" #stepper>
   <mat-step [stepControl]="dataService.initFormGroup">
@@ -41,43 +41,12 @@
     <ng-template matStepLabel> Show overall interval-valued fuzzy performance rating</ng-template>
     <app-overall-interval-valued-fuzzy-performance-rating></app-overall-interval-valued-fuzzy-performance-rating>
   </mat-step>
-
-
-
-
-  <!-- <mat-step [stepControl]="dataService.linguisticTermsForm">
-		<ng-template matStepLabel>Linguistic terms</ng-template>
-		<my-linguistic-terms></my-linguistic-terms>
-	</mat-step>
-	<mat-step>
-		<ng-template matStepLabel>Matrix of interval estimates of LT of oscillatory type</ng-template>
-		<my-interval-matrix></my-interval-matrix>
-	</mat-step> 
-	<mat-step>
-		<ng-template matStepLabel>Matrix of trapezoidal LT</ng-template>
-		<my-trapezoidal-matrix></my-trapezoidal-matrix>
-	</mat-step>
-	<mat-step [stepControl]="dataService.aggregationMethodsForm">
-		<ng-template matStepLabel>Aggregation methods</ng-template>
-		<my-aggregation-methods></my-aggregation-methods>
-	</mat-step>
-	<mat-step>
-		<ng-template matStepLabel>The result of the selected method</ng-template>
-		<my-calc-res></my-calc-res>
-	</mat-step>
-	<mat-step>
-		<ng-template matStepLabel>Conclusion</ng-template>
-		<p>You are now done.</p>
-		<mat-form-field style="width: 100%;">
-			<mat-label>Conclusion</mat-label>
-			<textarea matInput [(ngModel)]="dataService.conclusion" placeholder="Conclusion"></textarea>
-		</mat-form-field>
-		<div class="bottom-btn" style="margin-top: 10px;">
-			<button mat-stroked-button (click)="dataService.openChart()">
-    <mat-icon>bar_chart</mat-icon>
-  </button>
-			<button  mat-stroked-button matStepperPrevious>Back</button>
-			<button  mat-stroked-button (click)="stepper.reset()">Reset</button>
-		</div>
-	</mat-step> -->
+  <mat-step>
+    <ng-template matStepLabel> Show defuzzification</ng-template>
+    <app-defuzzification></app-defuzzification>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel> Show degree of utility</ng-template>
+    <app-degree-of-utility></app-degree-of-utility>
+  </mat-step>
 </mat-vertical-stepper>

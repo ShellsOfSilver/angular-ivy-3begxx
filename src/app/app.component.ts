@@ -46,7 +46,12 @@ export class AppComponent implements OnInit {
                       this.dataService.setoOerallIntervalValuedFuzzyPerformanceRating();
                       stepper.next();
                       setTimeout(() => {
-                        // next
+                        this.dataService.setDefuzzification();
+                        stepper.next();
+                        setTimeout(() => {
+                          this.dataService.setDegreeOfUtility();
+                          stepper.next();
+                        });
                       });
                     });
                   });

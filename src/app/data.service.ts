@@ -61,6 +61,16 @@ export class DataService {
     dataSource: any;
   };
 
+  defuzzificationTable: {
+    columns: Array<string>;
+    dataSource: any;
+  };
+
+  degreeOfUtilityTable: {
+    columns: Array<string>;
+    dataSource: any;
+  };
+
   listOfCriterias: any = [
     { value: "VL", viewValue: "Very low (VL)", trValue: [0.0, 0.0, 0.1] },
     { value: "L", viewValue: "Low (L)", trValue: [0.0, 0.1, 0.3] },
@@ -599,15 +609,17 @@ export class DataService {
     const dataSource = [];
     const sep = {};
 
-    this.normalizedWMatrixTable.dataSource.forEach(el => {
-      const keys = el["none"].data.split("_");
+    JSON.parse(JSON.stringify(this.normalizedWMatrixTable.dataSource)).forEach(
+      el => {
+        const keys = el["none"].data.split("_");
 
-      if (!sep[keys[1]]) {
-        sep[keys[1]] = {};
-        sep[keys[1]].data = [];
+        if (!sep[keys[1]]) {
+          sep[keys[1]] = {};
+          sep[keys[1]].data = [];
+        }
+        sep[keys[1]].data.push(el);
       }
-      sep[keys[1]].data.push(el);
-    });
+    );
 
     const getSumEl = (dataList, key) => {
       let sum = 0;
@@ -657,6 +669,79 @@ export class DataService {
 
     this.overallIntervalValuedFuzzyPerformanceRatingTable = {
       columns: ["none", "l", "l`", "m", "u`", "u"],
+      dataSource
+    };
+  }
+
+  setDefuzzification() {
+    this.defuzzificationTable = null;
+
+    const dataSource = [];
+
+    JSON.parse(
+      JSON.stringify(
+        this.overallIntervalValuedFuzzyPerformanceRatingTable.dataSource
+      )
+    ).forEach(el => {
+      const res = {};
+
+      res["none"] = el["none"];
+      res["res"] = {
+        data:
+          (el["l"].data +
+            el["l`"].data +
+            el["m"].data +
+            el["u`"].data +
+            el["u"].data) /
+          5,
+        id: 0
+      };
+
+      dataSource.push(res);
+    });
+
+    this.defuzzificationTable = {
+      columns: ["none", "res"],
+      dataSource
+    };
+  }
+
+  setDegreeOfUtility() {
+    this.degreeOfUtilityTable = null;
+    const dataSource = [];
+
+    let max = {
+      none: { data: "" },
+      res: { data: 0 }
+    };
+    const optimal = this.defuzzificationTable.dataSource.find(
+      e => e["none"].data === "Optimal"
+    ).res.data;
+
+    JSON.parse(JSON.stringify(this.defuzzificationTable.dataSource)).forEach(
+      el => {
+        el["res"].data = el["res"].data / +optimal;
+        if (el["none"].data !== "Optimal" && max.res.data < el["res"].data) {
+          max = el;
+        }
+        dataSource.push(el);
+      }
+    );
+
+    dataSource.push({
+      none: {
+        data: "Solution: " + max.none.data,
+        id: 0
+      },
+      res: {
+        data:
+          max.res.data +
+          " - has a rank of 1, at it is the closest to the optimal solution"
+      }
+    });
+
+    this.degreeOfUtilityTable = {
+      columns: ["none", "res"],
       dataSource
     };
   }
